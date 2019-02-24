@@ -1,0 +1,28 @@
+order += "sysdata"
+order += "diskdata"
+
+general {
+	color = "#FFFFFF"
+	color_bad = "#E06C75"
+	color_degraded = "#E5C07B"
+	color_good = "#98C379"
+}
+
+diskdata {
+	cache_timeout = 5
+	format = " "
+	format += "\[HDD: {free}/{total_space} GiB\]"
+	format += "\[R: {read}\]"
+	format += "\[W: {write}\]"
+	format_rate = "{value:.1f} {unit}"
+	format_space = "{value:.1f}"
+}
+
+sysdata {
+	cache_timeout = 5
+	format = " "
+	format += "\[CPU: {cpu_used_percent}%\]"
+	format += "\[LOAD: {load1}\]"
+	format += "\[TEMP: {cpu_temp:.1f} {temp_unit}\]"
+	format += "\[MEM: {mem_used}/{mem_total} {mem_unit}\]"
+}

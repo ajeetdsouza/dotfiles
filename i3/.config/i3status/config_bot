@@ -1,0 +1,41 @@
+order += "backlight"
+order += "volume_status"
+order += "battery_level"
+order += "clock"
+
+general {
+	color = "#FFFFFF"
+	color_bad = "#E06C75"
+	color_degraded = "#E5C07B"
+	color_good = "#98C379"
+}
+
+backlight {
+	brightness_delta = 4
+	cache_timeout = 5
+	command = "light"
+	format = " {level}%"
+}
+
+battery_level {
+	blocks = ""
+	cache_timeout = 5
+	charging_character = ""
+	color_charging = "#61AFEF"
+	format = "{icon} {percent}%"
+}
+
+clock {
+	blocks = ""
+	cache_timeout = 15
+	format_time = "{icon} %a, %d %b, %I:%M %p"
+}
+
+volume_status {
+	max_volume = 1000
+	format = "墳 {percentage}%"
+	color_muted = None
+	format_muted = "ﱝ"
+	thresholds = None
+	volume_delta = 2
+}
