@@ -134,7 +134,7 @@ horizontal_padding = 6
 #  * foreground: use the same color as the foreground;
 #  * frame: use the same color as the frame;
 #  * anything else will be interpreted as a X color.
-separator_color = frame
+separator_color = "#abb2bf"
 
 # Print a notification on startup.
 # This is mainly for error detection, since dbus (re-)starts dunst
@@ -155,7 +155,7 @@ max_icon_size = 80
 icon_path = /usr/share/icons/Papirus/16x16/mimetypes/:/usr/share/icons/Papirus/48x48/status/:/usr/share/icons/Papirus/16x16/devices/:/usr/share/icons/Papirus/48x48/notifications/:/usr/share/icons/Papirus/48x48/emblems/
 
 frame_width = 3
-frame_color = "#8EC07C"
+frame_color = "#abb2bf"
 
 [shortcuts]
 
@@ -181,24 +181,20 @@ context = ctrl+shift+period
 [urgency_low]
 # IMPORTANT: colors have to be defined in quotation marks.
 # Otherwise the "#" and following would be interpreted as a comment.
-frame_color = "#3B7C87"
-foreground = "#3B7C87"
-background = "#191311"
-#background = "#2B313C"
+background = "#353b45"
+foreground = "#545862"
 timeout = 4
 
 [urgency_normal]
 frame_color = "#5B8234"
-foreground = "#5B8234"
-background = "#191311"
-#background = "#2B313C"
+background = "#3e4451"
+foreground = "#abb2bf"
 timeout = 6
 
 [urgency_critical]
 frame_color = "#B7472A"
-foreground = "#B7472A"
-background = "#191311"
-#background = "#2B313C"
+background = "#e06c75"
+foreground = "#b6bdca"
 timeout = 8
 
 
