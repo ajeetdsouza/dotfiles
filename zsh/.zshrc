@@ -27,9 +27,6 @@ unsetopt beep
 
 zstyle :compinstall filename "${HOME}/.zshrc"
 
-autoload -Uz compinit
-compinit
-
 ##### keybindings #####
 bindkey "^[[1;5C" forward-word # [Ctrl-RightArrow] - move forward one word
 bindkey "^[[1;5D" backward-word # [Ctrl-RightArrow] - move forward one word
@@ -78,4 +75,7 @@ if ! zgen saved; then
 	# save all to init script
 	zgen save
 fi
+
+autoload -U +X bashcompinit && bashcompinit
+eval "$(stack --bash-completion-script stack)"
 
