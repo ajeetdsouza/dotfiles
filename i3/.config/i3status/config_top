@@ -11,7 +11,7 @@ general {
 diskdata {
 	cache_timeout = 5
 	format = " "
-	format += "\[HDD: {free}/{total_space} GiB\]"
+	format += "[\?color=used_percent \[HDD: {free}/{total_space} GiB\]]"
 	format += "\[R: {read}\]"
 	format += "\[W: {write}\]"
 	format_rate = "{value:.1f} {unit}"
@@ -20,9 +20,9 @@ diskdata {
 
 sysdata {
 	cache_timeout = 5
-	format = " "
-	format += "\[CPU: {cpu_used_percent}%\]"
-	format += "\[LOAD: {load1}\]"
-	format += "\[TEMP: {cpu_temp:.1f} {temp_unit}\]"
-	format += "\[MEM: {mem_used}/{mem_total} {mem_unit}\]"
+	format  = " "
+	format += "[\?color=cpu_used_percent \[CPU: {cpu_used_percent}%\]]"
+	format += "[\?color=load1 \[LOAD: {load1}\]]"
+	format += "[\?color=cpu_temp \[TEMP: {cpu_temp:.1f} {temp_unit}\]]"
+	format += "[\?color=mem_used \[MEM: {mem_used}/{mem_total} {mem_unit}\]]"
 }

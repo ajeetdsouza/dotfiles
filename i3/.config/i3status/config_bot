@@ -1,5 +1,6 @@
-order += "backlight"
+order += "spotify"
 order += "volume_status"
+order += "backlight"
 order += "battery_level"
 order += "clock"
 
@@ -31,11 +32,21 @@ clock {
 	format_time = "{icon} %a, %d %b, %I:%M %p"
 }
 
+spotify {
+	button_next = 3
+	button_play_pause = 2
+	button_previous = 1
+	format = " {artist} - {title}"
+	format_down = ""
+	format_stopped = ""
+}
+
 volume_status {
-	max_volume = 1000
+	button_mute = 2
+	color_muted = color_bad
 	format = "墳 {percentage}%"
-	color_muted = None
 	format_muted = "ﱝ"
+	max_volume = 1000
 	thresholds = None
 	volume_delta = 2
 }
