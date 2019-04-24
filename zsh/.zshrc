@@ -15,12 +15,6 @@ HISTSIZE=1000
 SAVEHIST=1000
 HISTFILE="${HOME}/.zsh_history"
 
-##### base16-shell #####
-BASE16_SHELL="$HOME/.config/base16-shell/"
-[ -n "$PS1" ] && \
-	[ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-		eval "$("$BASE16_SHELL/profile_helper.sh")"
-
 ##### set opts #####
 setopt appendhistory autocd extendedglob nomatch
 unsetopt beep
@@ -49,6 +43,7 @@ bindkey '^[[6~' down-line-or-history # [PageDown] - down a line of history
 alias exa='exa --group-directories-first'
 alias ls='ls --color=auto --group-directories-first'
 alias grep='grep --color=auto'
+eval $(dircolors -b "${HOME}/.zgen/trapd00r/LS_COLORS-master/LS_COLORS")
 
 function _exa_hook() {
     emulate -L zsh
@@ -66,7 +61,9 @@ if ! zgen saved; then
 
 	# plugins
 	zgen load bhilburn/powerlevel9k powerlevel9k.zsh-theme
+	zgen load chriskempson/base16-shell
 	zgen load rupa/z
+	zgen load trapd00r/LS_COLORS
 	zgen load zsh-users/zsh-autosuggestions
 
 	zgen oh-my-zsh
