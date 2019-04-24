@@ -20,17 +20,17 @@ floating_modifier $mod
 
 # startup
 exec_always --no-startup-id feh --recursive --randomize --bg-fill ~/Pictures/Wallpapers
-exec --no-startup-id franz
+exec --no-startup-id google-chrome --profile-directory=Default --app-id=hnpfjngllnobngcgfapefoaidbinmjnm
 exec --no-startup-id spotify
 exec --no-startup-id nm-applet
-exec --no-startup-id blueman-applet
+exec --no-startup-id blueberry-tray
 exec --no-startup-id dropbox start -i
 
 # scratchpad
-for_window [instance="franz"] move scratchpad
-for_window [instance="franz"] resize set 1300 700
+for_window [instance="crx_hnpfjngllnobngcgfapefoaidbinmjnm"] move scratchpad
+for_window [instance="crx_hnpfjngllnobngcgfapefoaidbinmjnm"] resize set 1300 700
 
-bindsym $mod+grave [instance="franz"] scratchpad show; [instance="franz"] move position center
+bindsym $mod+grave [instance="crx_hnpfjngllnobngcgfapefoaidbinmjnm"] scratchpad show; [instance="crx_hnpfjngllnobngcgfapefoaidbinmjnm"] move position center
 
 for_window [instance="spotify"] move scratchpad
 for_window [instance="spotify"] resize set 1300 700
