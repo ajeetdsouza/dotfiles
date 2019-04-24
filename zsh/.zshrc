@@ -46,8 +46,16 @@ bindkey '^[[5~' up-line-or-history # [PageUp] - up a line of history
 bindkey '^[[6~' down-line-or-history # [PageDown] - down a line of history
 
 ##### colorize all the things! #####
-alias ls='ls --color --group-directories-first'
-alias grep='grep --color'
+alias exa='exa --group-directories-first'
+alias ls='ls --color=auto --group-directories-first'
+alias grep='grep --color=auto'
+
+function _exa_hook() {
+    emulate -L zsh
+    exa
+}
+
+chpwd_functions=(${chpwd_functions[@]} "_exa_hook")
 
 ##### zgen #####
 source "${HOME}/.zgen/zgen.zsh"
@@ -78,4 +86,3 @@ fi
 
 autoload -U +X bashcompinit && bashcompinit
 eval "$(stack --bash-completion-script stack)"
-
