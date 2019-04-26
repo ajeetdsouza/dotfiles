@@ -19,9 +19,9 @@ font pango:UbuntuMono Nerd Font 10
 floating_modifier $mod
 
 # startup
+exec_always --no-startup-id i3-autoname-ws
 exec_always --no-startup-id feh --recursive --randomize --bg-fill ~/Pictures/Wallpapers
 exec --no-startup-id google-chrome --profile-directory=Default --app-id=hnpfjngllnobngcgfapefoaidbinmjnm
-exec --no-startup-id spotify
 exec --no-startup-id nm-applet
 exec --no-startup-id blueberry-tray
 exec --no-startup-id dropbox start -i
@@ -29,13 +29,7 @@ exec --no-startup-id dropbox start -i
 # scratchpad
 for_window [instance="crx_hnpfjngllnobngcgfapefoaidbinmjnm"] move scratchpad
 for_window [instance="crx_hnpfjngllnobngcgfapefoaidbinmjnm"] resize set 1300 700
-
 bindsym $mod+grave [instance="crx_hnpfjngllnobngcgfapefoaidbinmjnm"] scratchpad show; [instance="crx_hnpfjngllnobngcgfapefoaidbinmjnm"] move position center
-
-for_window [instance="spotify"] move scratchpad
-for_window [instance="spotify"] resize set 1300 700
-
-bindsym $mod+Tab [instance="spotify"] scratchpad show; [instance="spotify"] move position center
 
 # keybindings
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && py3-cmd refresh volume_status
