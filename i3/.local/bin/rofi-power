@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
 # DE-specific
-LOCK_CMD='i3lock-fancy --pixelate -f "Ubuntu-Mono-Nerd-Font-Complete" scrot'
+LOCK_CMD='i3-locker'
 LOGOUT_CMD='i3-msg exit'
 
 declare -A OPTIONS=(
-	["Lock"]="${LOCK_CMD}"
+	["Lock"]="${LOCK_CMD} && xset dpms force off"
 	["Logout"]="${LOGOUT_CMD}"
 	["Poweroff"]="systemctl poweroff"
 	["Reboot"]="systemctl reboot"

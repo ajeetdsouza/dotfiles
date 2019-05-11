@@ -2,6 +2,7 @@ order += "volume_status"
 order += "backlight"
 order += "battery_level"
 order += "clock"
+order += "do_not_disturb"
 
 general {
 	color = "#FFFFFF"
@@ -13,7 +14,7 @@ general {
 backlight {
 	brightness_delta = 4
 	cache_timeout = 5
-	command = "light"
+	command = "xbacklight"
 	format = " {level}%"
 }
 
@@ -28,7 +29,13 @@ battery_level {
 clock {
 	blocks = ""
 	cache_timeout = 15
-	format_time = "{icon} %a, %d %b, %I:%M %p"
+	format_time = "{icon} %d/%m/%y %H:%M"
+}
+
+do_not_disturb {
+	format = "[\?color=state&show ]"
+	pause = True
+	server = "dunst"
 }
 
 volume_status {
