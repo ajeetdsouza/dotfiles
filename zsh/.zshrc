@@ -60,7 +60,7 @@ if ! zgen saved; then
 	echo "Creating a zgen save"
 
 	# plugins
-	zgen load bhilburn/powerlevel9k powerlevel9k.zsh-theme
+  zgen load romkatv/powerlevel10k powerlevel10k
 	zgen load chriskempson/base16-shell
 	zgen load rupa/z
 	zgen load trapd00r/LS_COLORS
@@ -81,5 +81,8 @@ if ! zgen saved; then
 	zgen save
 fi
 
+##### completions #####
 autoload -U +X bashcompinit && bashcompinit
+
+# completions for Haskell Stack
 eval "$(stack --bash-completion-script stack)"
