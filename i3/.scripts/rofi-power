@@ -1,15 +1,11 @@
 #!/usr/bin/env bash
 
-# DE-specific
-LOCK_CMD='i3-locker'
-LOGOUT_CMD='i3-msg exit'
-
 declare -A OPTIONS=(
-	["Lock"]="${LOCK_CMD} && xset dpms force off"
-	["Logout"]="${LOGOUT_CMD}"
+	["Lock"]="xsecurelock"
+	["Logout"]="i3-msg exit"
 	["Poweroff"]="systemctl poweroff"
 	["Reboot"]="systemctl reboot"
-	["Suspend"]="${LOCK_CMD} && systemctl suspend"
+	["Suspend"]="systemctl suspend"
 )
 
 selected=$(IFS=$'\n' eval 'echo "${!OPTIONS[*]}"' | sort | rofi -dmenu -i -p "power")

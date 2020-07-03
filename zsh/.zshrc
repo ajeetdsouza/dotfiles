@@ -1,27 +1,21 @@
-export TERM=xterm-256color
+##### powerlevel10k #####
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
 
-##### powerlevel9k #####
-POWERLEVEL9K_MODE="nerdfont-complete"
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status root_indicator background_jobs dir_writable virtualenv anaconda ssh)
-DEFAULT_USER="${USER}"
+##### zsh options #####
+setopt appendhistory autocd extendedglob nomatch interactivecomments
+unsetopt beep
 
-POWERLEVEL9K_HOME_ICON=''
-POWERLEVEL9K_HOME_SUB_ICON=''
-POWERLEVEL9K_FOLDER_ICON=''
-
-##### history #####
+##### zsh history #####
 HISTSIZE=1000
 SAVEHIST=1000
 HISTFILE="${HOME}/.zsh_history"
 
-##### set opts #####
-setopt appendhistory autocd extendedglob nomatch
-unsetopt beep
-
-zstyle :compinstall filename "${HOME}/.zshrc"
-
-##### keybindings #####
+##### zsh keybindings #####
 bindkey "^[[1;5C" forward-word # [Ctrl-RightArrow] - move forward one word
 bindkey "^[[1;5D" backward-word # [Ctrl-RightArrow] - move forward one word
 
@@ -39,40 +33,45 @@ bindkey "^[[3~" delete-char # [Delete] - delete forward
 bindkey '^[[5~' up-line-or-history # [PageUp] - up a line of history
 bindkey '^[[6~' down-line-or-history # [PageDown] - down a line of history
 
-##### colorize all the things! #####
-alias exa='exa --group-directories-first'
-alias ls='ls --color=auto --group-directories-first'
+##### aliases #####
+alias code='codium'
 alias grep='grep --color=auto'
-eval $(dircolors -b "${HOME}/.zgen/trapd00r/LS_COLORS-master/LS_COLORS")
+alias ls='ls --color=auto --group-directories-first'
+alias v='vim'
+alias x='exit'
 
-function _exa_hook() {
+##### hooks #####
+function _ls_hook() {
     emulate -L zsh
-    exa
+    ls
 }
 
-chpwd_functions=(${chpwd_functions[@]} "_exa_hook")
+chpwd_functions=(${chpwd_functions[@]} '_ls_hook')
+
+##### zoxide #####
+eval "$(zoxide init zsh)"
+
+##### zsh-autosuggestions #####
+ZSH_AUTOSUGGEST_STRATEGY=(history)
 
 ##### zgen #####
+# load zgen
 source "${HOME}/.zgen/zgen.zsh"
 
 # if the init scipt doesn't exist
 if ! zgen saved; then
-	echo "Creating a zgen save"
+	echo 'Creating a zgen save'
 
 	# plugins
-  zgen load romkatv/powerlevel10k powerlevel10k
+  	zgen load romkatv/powerlevel10k powerlevel10k
 	zgen load chriskempson/base16-shell
-	zgen load rupa/z
-	zgen load trapd00r/LS_COLORS
 	zgen load zsh-users/zsh-autosuggestions
 
 	zgen oh-my-zsh
 	zgen oh-my-zsh plugins/bgnotify
 	zgen oh-my-zsh plugins/dirhistory
-	zgen oh-my-zsh plugins/history
-
-	# completions
 	zgen oh-my-zsh plugins/git
+	zgen oh-my-zsh plugins/history
 	zgen oh-my-zsh plugins/pip
 
 	zgen load zdharma/fast-syntax-highlighting
@@ -82,7 +81,13 @@ if ! zgen saved; then
 fi
 
 ##### completions #####
+zstyle :compinstall filename "${HOME}/.zshrc"
+
+autoload -Uz compinit
+compinit
+
 autoload -U +X bashcompinit && bashcompinit
 
-# completions for Haskell Stack
-eval "$(stack --bash-completion-script stack)"
+##### powerlevel10k #####
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
