@@ -1,0 +1,7 @@
+{{ if ne .chezmoi.os "linux" -}}
+$env:_ZO_RESOLVE_SYMLINKS = 1
+{{ end -}}
+Invoke-Expression (& { $hook = if ($PSVersionTable.PSVersion.Major -ge 6) { 'pwd' } else { 'prompt' } (zoxide init powershell --hook $hook) -join "`n" })
+
+# Setup for zoxide development.
+. $HOME/ws/zoxide/contrib/completions/_zoxide.ps1

@@ -1,0 +1,4 @@
+{{ if ne .chezmoi.os "linux" -}}
+$_ZO_RESOLVE_SYMLINKS = 1
+{{ end -}}
+execx($(zoxide init xonsh), 'exec', __xonsh__.ctx, filename='zoxide')

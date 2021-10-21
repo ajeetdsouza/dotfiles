@@ -1,0 +1,6 @@
+startup = ['zoxide init nushell --hook prompt | save ~/.zoxide.nu', 'source ~/.zoxide.nu']
+
+[env]
+{{ if ne .chezmoi.os "linux" -}}
+_ZO_RESOLVE_SYMLINKS = "1"
+{{ end -}}

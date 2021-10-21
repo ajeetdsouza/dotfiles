@@ -1,0 +1,12 @@
+[user]
+email = 98ajeet@gmail.com
+name = Ajeet D'Souza
+
+[pager]
+diff = delta
+log = delta
+reflog = delta
+show = delta
+
+[interactive]
+diffFilter = delta --color-only --features=interactive
