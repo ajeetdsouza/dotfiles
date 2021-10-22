@@ -1,4 +1,4 @@
-{{ if ne .chezmoi.os "linux" -}}
+{{ if eq .chezmoi.os "darwin" -}}
 $env:_ZO_RESOLVE_SYMLINKS = 1
 {{ end -}}
 Invoke-Expression (& { $hook = if ($PSVersionTable.PSVersion.Major -ge 6) { 'pwd' } else { 'prompt' } (zoxide init powershell --hook $hook) -join "`n" })

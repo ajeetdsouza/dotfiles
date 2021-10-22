@@ -18,7 +18,7 @@ export EDITOR='vim'
 # -U enforces a unique constraint on the array.
 typeset -U PATH path
 [[ -d "$HOME/.local/bin" ]] && path=("$HOME/.local/bin" $path)
-{{ if ne .chezmoi.os "linux" -}}
+{{ if eq .chezmoi.os "darwin" -}}
 # Prioritize Homebrew curl over system curl.
 [[ -d '/usr/local/opt/curl/bin' ]] && path=('/usr/local/opt/curl/bin' $path)
 {{ end -}}
@@ -71,7 +71,7 @@ export BAT_THEME='TwoDark'
 export LS_COLORS="$(vivid generate one-dark)"
 
 ##### zoxide #####
-{{ if ne .chezmoi.os "linux" -}}
+{{ if eq .chezmoi.os "darwin" -}}
 export _ZO_RESOLVE_SYMLINKS=1
 {{ end -}}
 eval "$(zoxide init zsh)"
@@ -108,21 +108,40 @@ zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 zle -N edit-command-line
 
+# The builtin $key associative array is the most portable way of defining
+# keybindings. See what keys are available using `echo ${(k)key}`.
 bindkey "$key[Up]" up-line-or-beginning-search     # [Up] - navigate backward through history using prefix
 bindkey "$key[Down]" down-line-or-beginning-search # [Down] - navigate forward through history using prefix
 bindkey "$key[PageUp]" up-line-or-history          # [PageUp] - go up a line of history
 bindkey "$key[PageDown]" down-line-or-history      # [PageDown] - go down a line of history
 bindkey "$key[Home]" beginning-of-line             # [Home] - go to beginning of line
 bindkey "$key[End]" end-of-line                    # [End] - go to end of line
-bindkey "$key[BackSpace]" backward-delete-char     # [BackSpace] - delete backward
 bindkey "$key[Delete]" delete-char                 # [Delete] - delete forward
-bindkey "${terminfo[kcbt]}" reverse-menu-complete  # [Shift-Tab] - move backwards through completions
+bindkey "$terminfo[kcbt]" reverse-menu-complete  # [Shift-Tab] - move backwards through completions
+bindkey '^X^E' edit-command-line                   # [Ctrl-X-Ctrl-E] - edit the current command in $EDITOR
+bindkey '^X^V' copy-prev-shell-word                # [Ctrl-X-Ctrl-V] - copy previous shell word, useful for renaming files
+if (( ${+key[BackSpace]} )); then                  # [BackSpace] - delete backward
+  bindkey "$key[BackSpace]" backward-delete-char
+elif (( ${+key[Backspace]} )); then
+  bindkey "$key[Backspace]" backward-delete-char
+else
+  echo '.zshrc: BackSpace character not found'
+fi
+
+{{ if eq .chezmoi.os "linux" -}}
+# Natural text editing.
+bindkey "$key[BackSpace]" backward-delete-char     # [BackSpace] - delete backward
 bindkey '^[[1;5D' backward-word                    # [Ctrl-Left] - move backward one word
 bindkey '^[[1;5C' forward-word                     # [Ctrl-Right] - move forward one word
 bindkey '^H' backward-kill-word                    # [Ctrl-Backspace] - delete word backward
 bindkey '^[[3;5~' kill-word                        # [Ctrl-Delete] - delete word forward
-bindkey '^X^E' edit-command-line                   # [Ctrl-X-Ctrl-E] - edit the current command in $EDITOR
-bindkey '^X^V' copy-prev-shell-word                # [Ctrl-X-Ctrl-V] - copy previous shell word, useful for renaming files
+
+{{ else if eq .chezmoi.os "darwin" -}}
+# To enable natural text editing, go to
+# iTerm2 > Preferences > Profiles > Keys > Key Mappings
+# and change the preset to "Natural Text Editing".
+
+{{ end -}}
 
 ##### Completions #####
 # autoload loads a function upon its first reference.
