@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+cd "$(chezmoi source-path)/xbar" || exit 1
+go install

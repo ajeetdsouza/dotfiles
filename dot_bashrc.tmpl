@@ -1,7 +1,0 @@
-{{ if eq .chezmoi.os "darwin" -}}
-export _ZO_RESOLVE_SYMLINKS=1
-{{ end -}}
-eval "$(zoxide init bash)"
-
-# Setup for zoxide development.
-source "$HOME/ws/zoxide/contrib/completions/zoxide.bash"

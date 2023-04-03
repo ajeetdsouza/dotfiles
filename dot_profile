@@ -1,0 +1,28 @@
+##### Environment #####
+# Default applications
+export BROWSER='brave-browser'
+export EDITOR='nvim'
+
+# PATH
+[ -d '/usr/lib/cargo/bin' ] && export PATH="/usr/lib/cargo/bin:$PATH"
+[ -d "$HOME/bin" ] && export PATH="$HOME/bin:$PATH"
+[ -d "$HOME/.local/bin" ] && export PATH="$HOME/.local/bin:$PATH"
+
+# MANPATH
+[ -d "$HOME/.local/share/man" ] && export MANPATH="$HOME/.local/share/man"
+
+# Go
+export GOPATH="$HOME/go"
+export GOBIN="$GOPATH/bin"
+[ -d "$GOBIN" ] && export PATH="$GOBIN:$PATH"
+
+# Rust
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+
+# xsecurelock
+export XSECURELOCK_FONT='Ubuntu Mono'
+
+# HiDPI
+export GDK_SCALE=2
+export GDK_DPI_SCALE=0.5
+export QT_AUTO_SCREEN_SCALE_FACTOR=1

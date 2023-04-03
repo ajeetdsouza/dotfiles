@@ -1,0 +1,115 @@
+##### History #####
+HISTSIZE=10000                # number of commands to load into memory
+SAVEHIST=100000               # number of commands to save in history file (>= HISTSIZE)
+HISTFILE="$HOME/.zsh_history" # location of history file
+
+setopt EXTENDED_HISTORY       # store timestamps in history
+setopt HIST_FIND_NO_DUPS      # don't show duplicate lines when navigating history
+setopt HIST_IGNORE_ALL_DUPS   # don't store duplicate commands
+setopt INC_APPEND_HISTORY     # immediately append to history file, preventing data loss on shell crash
+
+##### Aliases #####
+# Enable colors by default.
+alias diff='diff --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias grep='grep --color=auto'
+
+# Replace utilities with their equivalents.
+alias cat='bat --pager=never --style=plain'
+alias ls='exa --group-directories-first'
+
+# Prevent clobbering when dealing with files.
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm='rm -i'
+
+# This trick allows aliases to work with sudo.
+alias sudo='sudo '
+
+# Convenient aliases for frequently used commands.
+alias p='ipython'
+alias v='nvim'
+
+##### Hooks #####
+# When cd-ing into a directory, print its contents.
+function _ls_hook() { ls }
+chpwd_functions=(${chpwd_functions[@]} _ls_hook)
+
+##### Keybindings #####
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+autoload -U edit-command-line
+
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+zle -N edit-command-line
+
+# The builtin $key associative array is the most portable way of defining
+# keybindings. See what keys are available using `echo ${(k)key}`.
+bindkey "$key[Up]" up-line-or-beginning-search     # [Up] - navigate backward through history using prefix
+bindkey "$key[Down]" down-line-or-beginning-search # [Down] - navigate forward through history using prefix
+bindkey "$key[PageUp]" up-line-or-history          # [PageUp] - go up a line of history
+bindkey "$key[PageDown]" down-line-or-history      # [PageDown] - go down a line of history
+bindkey "$key[Home]" beginning-of-line             # [Home] - go to beginning of line
+bindkey "$key[End]" end-of-line                    # [End] - go to end of line
+(( ${+key[BackSpace]} )) &&                        # [BackSpace] - delete backward
+  bindkey "$key[BackSpace]" backward-delete-char
+(( ${+key[Backspace]} )) &&                        # [Backspace] - delete backward
+  bindkey "$key[Backspace]" backward-delete-char
+bindkey "$key[Delete]" delete-char                 # [Delete] - delete forward
+bindkey "$terminfo[kcbt]" reverse-menu-complete    # [Shift-Tab] - move backwards through completions
+bindkey '^[[1;5D' backward-word                    # [Ctrl-Left] - move backward one word
+bindkey '^[[1;5C' forward-word                     # [Ctrl-Right] - move forward one word
+bindkey '^H' backward-kill-word                    # [Ctrl-Backspace] - delete word backward
+bindkey '^[[3;5~' kill-word                        # [Ctrl-Delete] - delete word forward
+bindkey '^X^E' edit-command-line                   # [Ctrl-X-Ctrl-E] - edit the current command in $EDITOR
+bindkey '^X^V' copy-prev-shell-word                # [Ctrl-X-Ctrl-V] - copy previous shell word, useful for renaming files
+
+##### zgen #####
+. "$HOME/.zgen/zgen.zsh"
+if ! zgen saved; then
+  zgen load djui/alias-tips
+  zgen load romkatv/powerlevel10k powerlevel10k
+  zgen load zdharma-continuum/fast-syntax-highlighting
+  zgen load zsh-users/zsh-autosuggestions
+  zgen save
+fi
+
+##### Powerlevel10k #####
+# powerlevel10k opens a wizard if it doesn't find a configuration file.
+# However, the wizard also shows up due to errors in your .zshrc,
+# or due to hitting Ctrl-C before the prompt finishes loading.
+export POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD='true'
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+[[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]] &&
+  . "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+
+##### Completions #####
+# autoload loads a function upon its first reference.
+# -U disables alias expansion when loading this function.
+# -z forces zsh-style autoloading (rather than ksh-style autoloading).
+autoload -Uz compinit
+
+# compinit initializes zsh's completion system.
+# -i avoids loading insecure completion files (i.e. not owned by root/$USER).
+compinit -i
+
+##### atuin #####
+eval "$(atuin init zsh --disable-up-arrow)"
+
+##### bat #####
+export BAT_THEME='TwoDark'
+
+##### vivid #####
+export LS_COLORS="$(vivid generate one-dark)"
+
+##### zoxide #####
+eval "$(zoxide init zsh)"
+
+##### Powerlevel10k #####
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ -f "$HOME/.p10k.zsh" ]] && . "$HOME/.p10k.zsh"

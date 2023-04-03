@@ -1,6 +1,0 @@
-startup = ['zoxide init nushell --hook prompt | save ~/.zoxide.nu', 'source ~/.zoxide.nu']
-
-[env]
-{{ if eq .chezmoi.os "darwin" -}}
-_ZO_RESOLVE_SYMLINKS = "1"
-{{ end -}}
