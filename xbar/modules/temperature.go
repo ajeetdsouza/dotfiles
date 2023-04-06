@@ -29,6 +29,7 @@ func Temperature() bar.Module {
 				icon = "\uf2c7"
 			}
 
-			return outputs.Textf("%s %2d°C", icon, tCelsius)
+			urgent := tCelsius > 95
+			return outputs.Textf("%s %2d°C", icon, tCelsius).Urgent(urgent)
 		})
 }

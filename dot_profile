@@ -20,6 +20,7 @@ export GOBIN="$GOPATH/bin"
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
 # xsecurelock
+export XSECURELOCK_BLANK_DPMS_STATE=suspend
 export XSECURELOCK_FONT='Ubuntu Mono'
 
 # HiDPI

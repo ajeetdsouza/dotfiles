@@ -11,8 +11,6 @@ func Battery() bar.Module {
 		val := info.RemainingPct()
 
 		var icon string
-		urgent := false
-
 		switch info.Status {
 		case battery.Unknown, battery.Disconnected:
 			icon = "\uf590"
@@ -38,9 +36,6 @@ func Battery() bar.Module {
 				icon = "\uf584"
 			}
 		case battery.Discharging:
-			if val < 10 {
-				urgent = true
-			}
 			switch {
 			case val < 5:
 				icon = "\uf58d"
@@ -67,6 +62,7 @@ func Battery() bar.Module {
 			}
 		}
 
+		urgent := info.Status == battery.Discharging && val < 10
 		return outputs.Textf("%s %d%%", icon, val).Urgent(urgent)
 	})
 }

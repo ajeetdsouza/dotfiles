@@ -18,6 +18,8 @@ require (
 	github.com/jfreymuth/pulse v0.1.1-0.20221101213618-75628dabd933 // indirect
 	github.com/lucasb-eyer/go-colorful v1.2.0 // indirect
 	github.com/spf13/afero v1.9.5 // indirect
+	github.com/vishvananda/netlink v1.1.0 // indirect
+	github.com/vishvananda/netns v0.0.1 // indirect
 	golang.org/x/crypto v0.7.0 // indirect
 	golang.org/x/net v0.8.0 // indirect
 	golang.org/x/oauth2 v0.6.0 // indirect

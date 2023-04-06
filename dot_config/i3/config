@@ -90,8 +90,8 @@ bindsym Ctrl+Shift+$mod+Down  move workspace to output Down
 
 ##### Function keys #####
 # Use light to adjust backlight brightness
-bindsym XF86MonBrightnessUp   exec --no-startup-id light -A 2
-bindsym XF86MonBrightnessDown exec --no-startup-id light -U 2
+bindsym XF86MonBrightnessUp   exec --no-startup-id light -A 5
+bindsym XF86MonBrightnessDown exec --no-startup-id light -U 5
 
 # Use pactl to adjust volume in PulseAudio
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%
@@ -124,22 +124,26 @@ exec_always --no-startup-id nm-applet
 exec_always --no-startup-id safeeyes --enable
 
 ##### Lockscreen #####
-# Set preferences in X to automatically lock the screen. The notifier is called
-# after <timeout> seconds of inactivity. If the user remains idle for <cycle>
-# seconds more, the locker is called.
-# xset s <timeout> <cycle>
-exec_always --no-startup-id xset s 300 5
-
 # xss-lock grabs a logind suspend inhibit lock and will use it to lock the
-# screen before suspend. `xsecurelock` is a screen locker and `dimmer` fades the
-# screen to black. The location of `dimmer` may vary, use `locate` to find it.
-# After setting this up, you can use `xset s activate` to lock your screen.
-exec_always --no-startup-id xss-lock --notifier /usr/libexec/xsecurelock/dimmer --transfer-sleep-lock -- xsecurelock
+# screen before suspend.
+exec_always --no-startup-id xss-lock --transfer-sleep-lock -- xsecurelock
 
-##### Launch applications #####
+# xidlehook will automatically lock / suspend after the timeout.
+exec --no-startup-id xidlehook --not-when-fullscreen --not-when-audio \
+  --timer 300 /usr/libexec/xsecurelock/dimmer '' \
+  --timer 2 xsecurelock '' \
+  --timer 30 'systemctl suspend' ''
+
+##### Applications #####
 bindsym $mod+Return exec alacritty
 bindsym $mod+d exec rofi -modi drun -show drun
 bindsym $mod+Shift+e exec --no-startup-id "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+for_window [instance="^web.whatsapp.com$"] move scratchpad
+bindsym $mod+grave \
+        [instance="^web.whatsapp.com$"] scratchpad show; \
+        [instance="^web.whatsapp.com$"] resize set 95 ppt 90 ppt; \
+        [instance="^web.whatsapp.com$"] move position center
 
 ##### Appearance #####
 # Set the font for window titles. This is also used by the bar unless a
