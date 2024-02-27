@@ -5,6 +5,8 @@
     frame_color = "#abb2bf"
     separator_color = "#abb2bf"
 
+    offset = 10x10
+
     close = ctrl+space
     history = ctrl+grave
 
