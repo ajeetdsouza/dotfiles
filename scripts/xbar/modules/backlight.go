@@ -17,11 +17,11 @@ func Backlight() bar.Module {
 		var icon string
 		switch {
 		case val <= 33:
-			icon = "\uf5dd"
+			icon = "󰃞"
 		case val <= 67:
-			icon = "\uf5de"
+			icon = "󰃟"
 		default:
-			icon = "\uf5df"
+			icon = "󰃠"
 		}
 
 		return outputs.Textf("%s %d%%", icon, val).OnClick(func(e bar.Event) {

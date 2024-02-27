@@ -18,15 +18,15 @@ func Temperature() bar.Module {
 			var icon string
 			switch {
 			case tCelsius < 20:
-				icon = "\uf2cb"
+				icon = ""
 			case tCelsius < 40:
-				icon = "\uf2ca"
+				icon = ""
 			case tCelsius < 60:
-				icon = "\uf2c9"
+				icon = ""
 			case tCelsius < 80:
-				icon = "\uf2c8"
+				icon = ""
 			default:
-				icon = "\uf2c7"
+				icon = ""
 			}
 
 			urgent := tCelsius > 95

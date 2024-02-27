@@ -12,7 +12,7 @@ func Memory() bar.Module {
 		memTotal := m["MemTotal"].Gibibytes()
 		urgent := memAvailable < 1
 		return outputs.
-			Textf("\uf85a %.1f/%.1fGiB", memAvailable, memTotal).
+			Textf("󰍛 %.1f/%.1fGiB", memAvailable, memTotal).
 			Urgent(urgent)
 	})
 }

@@ -21,9 +21,9 @@ func main() {
 		modules.CPU(),
 		modules.Memory(),
 		modules.Temperature(),
-		modules.Backlight(),
+		// modules.Backlight(),
 		modules.Volume(),
-		modules.Battery(),
+		// modules.Battery(),
 		modules.Time(),
 	); err != nil {
 		log.Fatal("error in barista: ", err.Error())

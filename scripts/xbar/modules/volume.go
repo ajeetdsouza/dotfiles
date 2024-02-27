@@ -16,7 +16,7 @@ import (
 func Volume() bar.Module {
 	return volume.New(pulseaudio.DefaultSink()).Output(func(v volume.Volume) bar.Output {
 		if v.Mute {
-			return outputs.Textf("\u200e\ufc5d --")
+			return outputs.Textf("󰝟 --")
 		}
 
 		val := v.Pct()
@@ -28,13 +28,11 @@ func Volume() bar.Module {
 		var icon string
 		switch {
 		case val == 0:
-			icon = "\ufa80"
-		case val <= 33:
-			icon = "\ufa7e"
-		case val <= 67:
-			icon = "\ufa7f"
+			icon = "󰕿"
+		case val <= 50:
+			icon = "󰖀"
 		default:
-			icon = "\ufa7d"
+			icon = "󰕾"
 		}
 
 		return outputs.

@@ -14,6 +14,6 @@ func CPU() bar.Module {
 	return sysinfo.New().Output(func(s sysinfo.Info) bar.Output {
 		loadAvg := s.Loads[0]
 		urgent := loadAvg > float64(numCPUs)
-		return outputs.Textf("\ufb19 %0.2f", loadAvg).Urgent(urgent)
+		return outputs.Textf("󰻠 %0.2f", loadAvg).Urgent(urgent)
 	})
 }

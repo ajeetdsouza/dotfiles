@@ -17,7 +17,7 @@ alias grep='grep --color=auto'
 
 # Replace utilities with their equivalents.
 alias cat='bat --pager=never --style=plain'
-alias ls='exa --group-directories-first'
+alias ls='eza --group-directories-first'
 
 # Prevent clobbering when dealing with files.
 alias cp='cp -i'
@@ -33,7 +33,9 @@ alias v='nvim'
 
 ##### Hooks #####
 # When cd-ing into a directory, print its contents.
-function _ls_hook() { ls }
+function _ls_hook() {
+  ls
+}
 chpwd_functions=(${chpwd_functions[@]} _ls_hook)
 
 ##### Keybindings #####
@@ -45,20 +47,10 @@ zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 zle -N edit-command-line
 
-# The builtin $key associative array is the most portable way of defining
-# keybindings. See what keys are available using `echo ${(k)key}`.
-bindkey "$key[Up]" up-line-or-beginning-search     # [Up] - navigate backward through history using prefix
-bindkey "$key[Down]" down-line-or-beginning-search # [Down] - navigate forward through history using prefix
-bindkey "$key[PageUp]" up-line-or-history          # [PageUp] - go up a line of history
-bindkey "$key[PageDown]" down-line-or-history      # [PageDown] - go down a line of history
-bindkey "$key[Home]" beginning-of-line             # [Home] - go to beginning of line
-bindkey "$key[End]" end-of-line                    # [End] - go to end of line
-(( ${+key[BackSpace]} )) &&                        # [BackSpace] - delete backward
-  bindkey "$key[BackSpace]" backward-delete-char
-(( ${+key[Backspace]} )) &&                        # [Backspace] - delete backward
-  bindkey "$key[Backspace]" backward-delete-char
-bindkey "$key[Delete]" delete-char                 # [Delete] - delete forward
-bindkey "$terminfo[kcbt]" reverse-menu-complete    # [Shift-Tab] - move backwards through completions
+bindkey '^[[A' up-line-or-beginning-search         # [Up] - navigate backward through history using prefix
+bindkey '^[[B' down-line-or-beginning-search       # [Down] - navigate forward through history using prefix
+bindkey '^?' backward-delete-char                  # [BackSpace] - delete backward
+bindkey '^[[3~' delete-char                        # [Delete] - delete forward
 bindkey '^[[1;5D' backward-word                    # [Ctrl-Left] - move backward one word
 bindkey '^[[1;5C' forward-word                     # [Ctrl-Right] - move forward one word
 bindkey '^H' backward-kill-word                    # [Ctrl-Backspace] - delete word backward
@@ -66,9 +58,22 @@ bindkey '^[[3;5~' kill-word                        # [Ctrl-Delete] - delete word
 bindkey '^X^E' edit-command-line                   # [Ctrl-X-Ctrl-E] - edit the current command in $EDITOR
 bindkey '^X^V' copy-prev-shell-word                # [Ctrl-X-Ctrl-V] - copy previous shell word, useful for renaming files
 
+[[ -n "${terminfo[kpp]}" ]] &&
+  bindkey "${terminfo[kpp]}" up-line-or-history    # [PageUp] - go up a line of history
+[[ -n "${terminfo[knp]}" ]] &&
+  bindkey "${terminfo[knp]}" down-line-or-history  # [PageDown] - go down a line of history
+[[ -n "${terminfo[khome]}" ]] &&
+  bindkey "${terminfo[khome]}" beginning-of-line   # [Home] - go to beginning of line
+[[ -n "${terminfo[kend]}" ]] &&
+  bindkey "${terminfo[kend]}" end-of-line          # [End] - go to end of line
+[[ -n "${terminfo[kcbt]}" ]] &&
+  bindkey "$terminfo[kcbt]" reverse-menu-complete  # [Shift-Tab] - move backwards through completions
+
 ##### zgen #####
-. "$HOME/.zgen/zgen.zsh"
+[[ -d "$HOME/.zgen" ]] || git clone https://github.com/tarjoilija/zgen.git "$HOME/.zgen"
+source "$HOME/.zgen/zgen.zsh"
 if ! zgen saved; then
+  zgen load chriskempson/base16-shell
   zgen load djui/alias-tips
   zgen load romkatv/powerlevel10k powerlevel10k
   zgen load zdharma-continuum/fast-syntax-highlighting
@@ -100,6 +105,9 @@ compinit -i
 
 ##### atuin #####
 eval "$(atuin init zsh --disable-up-arrow)"
+
+##### base16-shell #####
+base16_onedark
 
 ##### bat #####
 export BAT_THEME='TwoDark'

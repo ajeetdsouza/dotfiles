@@ -15,11 +15,11 @@ func Media() bar.Module {
 		case media.Disconnected:
 			return nil
 		case media.Playing:
-			icon = "\uf04b"
+			icon = ""
 		case media.Paused:
-			icon = "\uf04c"
+			icon = ""
 		case media.Stopped:
-			icon = "\uf04d"
+			icon = ""
 		}
 
 		return outputs.

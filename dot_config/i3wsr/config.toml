@@ -1,0 +1,31 @@
+[icons]
+bluetooth = ""
+file-manager = ""
+google-chrome = ""
+megasync = "󰰐"
+spotify = ""
+terminal = ""
+whatsapp = ""
+visual-studio-code = "󰨞"
+volume-control = "󰓃"
+
+[aliases.class]
+Blueman-manager = "bluetooth"
+Brave-browser = "google-chrome"
+Code = "visual-studio-code"
+MEGAsync = "megasync"
+Pavucontrol = "volume-control"
+Spotify = "spotify"
+Thunar = "file-manager"
+Xfce4-terminal = "terminal"
+
+[aliases.instance]
+crx_hnpfjngllnobngcgfapefoaidbinmjnm = "whatsapp"
+
+[general]
+default_icon = ""
+separator = " "
+split_at = ":"
+
+[options]
+no_names = true

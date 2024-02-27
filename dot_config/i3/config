@@ -43,8 +43,9 @@ bindsym $mod+a focus parent
 # Kill focused window
 bindsym $mod+Shift+q kill
 
-# Restart i3 inplace, preserving your layout / session
-bindsym $mod+Shift+r exec --no-startup-id chezmoi apply
+# Refresh i3
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
 
 # Switch to workspace
 bindsym $mod+1 workspace number 1
@@ -113,13 +114,13 @@ bindsym XF86Mail       exec --no-startup-id xdg-email
 bindsym XF86Tools      exec --no-startup-id spotify
 
 ##### Startup #####
-exec --no-startup-id i3-autoname-ws
 exec --no-startup-id megasync
 exec --no-startup-id udiskie --tray
-exec_always --no-startup-id autorandr --change && nitrogen --restore
 exec_always --no-startup-id blueman-applet
 exec_always --no-startup-id dunst
-exec_always --no-startup-id lxpolkit
+exec_always --no-startup-id i3wsr
+# exec_always --no-startup-id lxpolkit
+exec_always --no-startup-id nitrogen --restore
 exec_always --no-startup-id nm-applet
 exec_always --no-startup-id safeeyes --enable
 
@@ -129,26 +130,26 @@ exec_always --no-startup-id safeeyes --enable
 exec_always --no-startup-id xss-lock --transfer-sleep-lock -- xsecurelock
 
 # xidlehook will automatically lock / suspend after the timeout.
-exec --no-startup-id xidlehook --not-when-fullscreen --not-when-audio \
-  --timer 300 /usr/libexec/xsecurelock/dimmer '' \
-  --timer 2 xsecurelock '' \
-  --timer 30 'systemctl suspend' ''
+# exec --no-startup-id xidlehook --not-when-fullscreen --not-when-audio \
+#   --timer 300 /usr/libexec/xsecurelock/dimmer '' \
+#   --timer 2 xsecurelock '' \
+#   --timer 30 'systemctl suspend' ''
 
 ##### Applications #####
-bindsym $mod+Return exec alacritty
-bindsym $mod+d exec rofi -modi drun -show drun
+bindsym $mod+Return exec xfce4-terminal
+bindsym $mod+d exec rofi -dpi 1 -modi drun -show drun
 bindsym $mod+Shift+e exec --no-startup-id "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
-for_window [instance="^web.whatsapp.com$"] move scratchpad
+for_window [instance="^crx_hnpfjngllnobngcgfapefoaidbinmjnm$"] move scratchpad
 bindsym $mod+grave \
-        [instance="^web.whatsapp.com$"] scratchpad show; \
-        [instance="^web.whatsapp.com$"] resize set 95 ppt 90 ppt; \
-        [instance="^web.whatsapp.com$"] move position center
+        [instance="^crx_hnpfjngllnobngcgfapefoaidbinmjnm$"] scratchpad show; \
+        [instance="^crx_hnpfjngllnobngcgfapefoaidbinmjnm$"] resize set 95 ppt 90 ppt; \
+        [instance="^crx_hnpfjngllnobngcgfapefoaidbinmjnm$"] move position center
 
 ##### Appearance #####
 # Set the font for window titles. This is also used by the bar unless a
 # different font is set in the bar {} block
-font pango:UbuntuMono Nerd Font Mono 10
+font pango:UbuntuMono Nerd Font Mono 11
 
 # Set a 3px border, and disable title bars
 default_border pixel 3
@@ -206,3 +207,22 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
+
+##############
+# The combination of xss-lock, nm-applet and pactl is a popular choice, so
+# they are included here as an example. Modify as you see fit.
+
+# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
+# screen before suspend. Use loginctl lock-session to lock your screen.
+# exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+
+# NetworkManager is the most popular way to manage wireless networks on Linux,
+# and nm-applet is a desktop environment-independent system tray GUI for it.
+# exec --no-startup-id nm-applet
+
+# Use pactl to adjust volume in PulseAudio.
+# set $refresh_i3status killall -SIGUSR1 i3status
+# bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+# bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+# bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+# bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
