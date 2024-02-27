@@ -138,7 +138,7 @@ exec_always --no-startup-id xss-lock --transfer-sleep-lock -- xsecurelock
 ##### Applications #####
 bindsym $mod+Return exec xfce4-terminal
 bindsym $mod+d exec rofi -dpi 1 -modi drun -show drun
-bindsym $mod+Shift+e exec --no-startup-id "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec --no-startup-id xpower
 
 for_window [instance="^crx_hnpfjngllnobngcgfapefoaidbinmjnm$"] move scratchpad
 bindsym $mod+grave \
