@@ -26,6 +26,7 @@ sudo dnf install -y \
   go \
   libavcodec-freeworld \
   lxappearance \
+  mate-polkit \
   neovim \
   nitrogen \
   papirus-icon-theme \
