@@ -39,6 +39,7 @@ sudo dnf install -y \
   shellcheck \
   tokei \
   vlc \
+  xonsh \
   xsecurelock \
   xz-static \
   zsh
@@ -95,9 +96,13 @@ cargo install --locked \
   vivid
 cargo install --locked --git 'https://github.com/roosta/i3wsr' --tag 'v3.0.0'
 
+# Go
+go install -v src.elv.sh/cmd/elvish@latest
+
 # Flatpak
 sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install flathub -y com.spotify.Client md.obsidian.Obsidian
 
 # Manually install
 # - MEGAsync (Flatpak keeps crashing)
+# - PowerShell

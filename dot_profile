@@ -4,6 +4,7 @@ export BROWSER='brave-browser'
 export EDITOR='nvim'
 
 # PATH
+[ -d "$HOME/.local/share/JetBrains/Toolbox/scripts" && export PATH="$HOME/.local/share/JetBrains/Toolbox/scripts:$PATH" ]
 [ -d "$HOME/bin" ] && export PATH="$HOME/bin:$PATH"
 [ -d "$HOME/.local/bin" ] && export PATH="$HOME/.local/bin:$PATH"
 
