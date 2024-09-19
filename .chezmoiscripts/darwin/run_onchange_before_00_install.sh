@@ -1,0 +1,120 @@
+#!/usr/bin/env bash
+
+set -euxo pipefail
+
+if ! command -v brew &>/dev/null; then
+    eval "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+brew bundle --cleanup --no-upgrade --file=- <<EOF
+tap "felixkratz/formulae"
+tap "hashicorp/tap"
+tap "homebrew/services"
+tap "nikitabobko/tap"
+tap "oven-sh/bun"
+
+brew "aria2"
+brew "atool"
+brew "atuin"
+brew "bandwhich"
+brew "bash"
+brew "bat"
+brew "cargo-outdated"
+brew "cargo-udeps"
+brew "chezmoi"
+brew "direnv"
+brew "eza"
+brew "fd"
+brew "felixkratz/formulae/borders"
+brew "fish"
+brew "fzf"
+brew "gh"
+brew "git"
+brew "git-delta"
+brew "git-recent"
+brew "go"
+brew "go-task"
+brew "golangci-lint"
+brew "hashicorp/tap/terraform"
+brew "httpie"
+brew "hyperfine"
+brew "jq"
+brew "litecli"
+brew "mycli"
+brew "neovim"
+brew "nushell"
+brew "oven-sh/bun/bun"
+brew "pgcli"
+brew "pipx"
+brew "pkg-config"
+brew "protobuf"
+brew "python"
+brew "rbw"
+brew "ripgrep-all"
+brew "rsync"
+brew "shellcheck"
+brew "sqlc"
+brew "rustup"
+brew "tokei"
+brew "vivid"
+brew "watchexec"
+brew "yq"
+brew "zoxide"
+brew "zsh"
+
+cask "beekeeper-studio"
+cask "bluesnooze"
+cask "brave-browser"
+cask "command-x"
+cask "domzilla-caffeine"
+cask "font-ubuntu-mono-nerd-font"
+cask "google-cloud-sdk"
+cask "jordanbaird-ice"
+cask "karabiner-elements"
+cask "lens"
+cask "localsend"
+cask "monitorcontrol"
+cask "mos"
+cask "music-decoy"
+cask "ngrok"
+cask "nikitabobko/tap/aerospace"
+cask "obsidian"
+cask "orbstack"
+cask "postman"
+cask "powershell"
+cask "raycast"
+cask "reader"
+cask "spotify"
+cask "stats"
+cask "todoist"
+cask "visual-studio-code"
+cask "warp"
+cask "wezterm"
+cask "whatsapp"
+cask "zoom"
+
+# Work only
+brew "java"
+brew "minikube"
+brew "minio"
+brew "node"
+brew "pnpm"
+brew "postgresql@14"
+brew "redis"
+brew "tesseract"
+brew "vespa-cli"
+cask "microsoft-auto-update"
+cask "microsoft-teams"
+
+# Experimental
+brew "yazi"
+cask "cursor"
+EOF
+
+gcloud components install gke-gcloud-auth-plugin
+gh extension install github/gh-copilot
+go install github.com/google/pprof@latest
+pipx install argcomplete poetry
+
+rustup-init -y --no-modify-path --no-update-default-toolchain
+rustup toolchain list | grep -q nightly || rustup toolchain install nightly

@@ -1,0 +1,112 @@
+# Reference: https://github.com/i3/i3/blob/next/etc/config
+
+start-at-login = true
+default-root-container-orientation = 'horizontal'
+automatically-unhide-macos-hidden-apps = false
+
+# i3 doesn't have "normalizations" feature that why we disable them here.
+# But the feature is very helpful.
+# Normalizations eliminate all sorts of weird tree configurations that don't make sense.
+# Give normalizations a chance and enable them back.
+enable-normalization-flatten-containers = false
+enable-normalization-opposite-orientation-for-nested-containers = false
+
+# Mouse lazily follows any focus (window or workspace)
+on-focus-changed = ['move-mouse window-lazy-center']
+
+[mode.main.binding]
+cmd-m = [] # Disable "minimize"
+
+alt-shift-q = 'close --quit-if-last-window'
+alt-enter = 'exec-and-forget open -na /Applications/Wezterm.app'
+
+alt-h = 'focus left --boundaries all-monitors-outer-frame'
+alt-j = 'focus down --boundaries all-monitors-outer-frame'
+alt-k = 'focus up --boundaries all-monitors-outer-frame'
+alt-l = 'focus right --boundaries all-monitors-outer-frame'
+
+alt-shift-h = 'move left'
+alt-shift-j = 'move down'
+alt-shift-k = 'move up'
+alt-shift-l = 'move right'
+
+# Consider using 'join-with' command as a 'split' replacement if you want to enable normalizations
+alt-g = 'split horizontal'
+alt-v = 'split vertical'
+
+alt-f = 'fullscreen'
+
+alt-s = 'layout v_accordion'               # 'layout stacking' in i3
+alt-w = 'layout h_accordion'               # 'layout tabbed' in i3
+alt-e = 'layout tiles horizontal vertical' # 'layout toggle split' in i3
+
+alt-shift-space = 'layout floating tiling' # 'floating toggle' in i3
+
+# Not supported, because this command is redundant in AeroSpace mental model.
+# See: https://nikitabobko.github.io/AeroSpace/guide#floating-windows
+#alt-space = 'focus toggle_tiling_floating'
+
+# `focus parent`/`focus child` are not yet supported, and it's not clear whether they
+# should be supported at all https://github.com/nikitabobko/AeroSpace/issues/5
+# alt-a = 'focus parent'
+
+alt-1 = 'summon-workspace 1'
+alt-2 = 'summon-workspace 2'
+alt-3 = 'summon-workspace 3'
+alt-4 = 'summon-workspace 4'
+alt-5 = 'summon-workspace 5'
+alt-6 = 'summon-workspace 6'
+alt-7 = 'summon-workspace 7'
+alt-8 = 'summon-workspace 8'
+alt-9 = 'summon-workspace 9'
+alt-0 = 'summon-workspace 10'
+alt-minus = 'summon-workspace 11'
+alt-equal = 'summon-workspace 12'
+
+alt-shift-1 = 'move-node-to-workspace 1'
+alt-shift-2 = 'move-node-to-workspace 2'
+alt-shift-3 = 'move-node-to-workspace 3'
+alt-shift-4 = 'move-node-to-workspace 4'
+alt-shift-5 = 'move-node-to-workspace 5'
+alt-shift-6 = 'move-node-to-workspace 6'
+alt-shift-7 = 'move-node-to-workspace 7'
+alt-shift-8 = 'move-node-to-workspace 8'
+alt-shift-9 = 'move-node-to-workspace 9'
+alt-shift-0 = 'move-node-to-workspace 10'
+alt-shift-minus = 'move-node-to-workspace 11'
+alt-shift-equal = 'move-node-to-workspace 12'
+
+#alt-b = 'move-workspace-to-monitor --wrap-around next'
+
+alt-shift-c = 'reload-config'
+
+alt-r = 'mode resize'
+
+[mode.resize.binding]
+h = 'resize width -50'
+j = 'resize height +50'
+k = 'resize height -50'
+l = 'resize width +50'
+enter = 'mode main'
+esc = 'mode main'
+
+[gaps]
+inner.horizontal = 8
+inner.vertical = 8
+outer.left = 8
+outer.bottom = 8
+outer.top = 8
+outer.right = 8
+
+# Brave switches to a floating layout when a tab is dragged out of a window.
+[[on-window-detected]]
+if.app-id = 'com.brave.Browser'
+check-further-callbacks = true
+run = 'layout tiling'
+
+# System Preferences by default opens in a floating layout since it can't be resized properly, but
+# bad tiling is better than no tiling.
+[[on-window-detected]]
+if.app-id = 'com.apple.systempreferences'
+check-further-callbacks = true
+run = 'layout tiling'

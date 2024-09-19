@@ -1,0 +1,156 @@
+# shellcheck shell=bash
+# shellcheck disable=SC1090,SC1091
+
+##### zsh #####
+# Miscellaneous
+setopt appendhistory autocd extendedglob extendedhistory histfindnodups histignorealldups histignorespace sharehistory
+WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+
+# History
+HISTSIZE=10000                  # number of commands to load into memory
+SAVEHIST=100000                 # number of commands to save in history file (>= HISTSIZE)
+HISTFILE="${HOME}/.zsh_history" # location of history file
+
+# Completions
+zstyle ':completion:*' completer _extensions _complete _approximate
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*' menu select
+
+if command -v brew &>/dev/null; then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+fi
+
+_completions_dir="${HOME}/.local/share/zsh-completions"
+FPATH="${_completions_dir}:${FPATH}"
+
+##### zgenom #####
+[[ -d "${HOME}/.zgenom" ]] || git clone https://github.com/jandamm/zgenom.git "${HOME}/.zgenom"
+. "${HOME}/.zgenom/zgenom.zsh"
+
+zgenom autoupdate
+if ! zgenom saved; then
+  rm -f "${HOME}/.zcompdump*"
+
+  mkdir -p "${_completions_dir}"
+  function _load_completions() {
+    local _function="${1}"
+    shift
+    local _command="${1}"
+    command -v "${_command}" >/dev/null && "${@}" >"${_completions_dir}/${_function}"
+  }
+  _load_completions _atuin atuin gen-completions --shell=zsh
+  _load_completions _cargo rustup completions zsh cargo
+  _load_completions _chezmoi chezmoi completion zsh
+  _load_completions _gh gh completion --shell=zsh
+  _load_completions _kubectl kubectl completion zsh
+  _load_completions _orb orb completion zsh
+  _load_completions _pipx register-python-argcomplete --shell=zsh pipx
+  _load_completions _rbw rbw gen-completions zsh
+  _load_completions _rustup rustup completions zsh rustup
+  _load_completions _task task --completion=zsh
+  _load_completions _watchexec watchexec --completions=zsh
+  _load_completions _wezterm wezterm shell-completion --shell=zsh
+  _load_completions _yq yq completion zsh
+
+  zgenom load djui/alias-tips
+  zgenom load hlissner/zsh-autopair
+  zgenom load MichaelAquilina/zsh-auto-notify
+  zgenom load romkatv/powerlevel10k powerlevel10k
+  zgenom load zdharma-continuum/fast-syntax-highlighting
+  zgenom load zsh-users/zsh-autosuggestions
+  zgenom load zsh-users/zsh-completions
+
+  zgenom save
+  zgenom compile "${HOME}/.zshrc"
+  zgenom clean
+fi
+
+##### Bash completions #####
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C terraform terraform
+
+##### Powerlevel10k #####
+# powerlevel10k opens a wizard if it doesn't find a configuration file.
+# However, the wizard also shows up due to errors in your .zshrc,
+# or due to hitting Ctrl-C before the prompt finishes loading.
+export POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD='true'
+
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+[[ -r "${XDG_CACHE_HOME:-${HOME}/.cache}/p10k-instant-prompt-${USER}.zsh" ]] &&
+  . "${XDG_CACHE_HOME:-${HOME}/.cache}/p10k-instant-prompt-${USER}.zsh"
+
+##### Aliases #####
+# Enable colors by default.
+alias diff='diff --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias grep='grep --color=auto'
+
+# Replace utilities with their equivalents.
+alias cat='bat --pager=never --style=plain'
+alias ls='eza --group-directories-first'
+alias rg='rga'
+
+# Prevent clobbering when dealing with files.
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm='rm -i'
+
+# This trick allows aliases to work with sudo.
+alias sudo='sudo '
+
+# Convenient aliases for frequently used commands.
+alias k='kubectl'
+alias p='python'
+alias t='task'
+alias v='nvim'
+
+##### Hooks #####
+# When cd-ing into a directory, print its contents.
+function _ls_hook() {
+  ls
+}
+chpwd_functions=(${chpwd_functions[@]} _ls_hook)
+
+##### atuin #####
+eval "$(atuin init zsh --disable-up-arrow)"
+
+##### bat #####
+export BAT_THEME='TwoDark'
+
+##### direnv #####
+eval "$(direnv hook zsh)"
+
+##### vivid #####
+LS_COLORS="$(vivid generate one-dark)"
+export LS_COLORS
+
+##### zoxide #####
+eval "$(zoxide init zsh)"
+
+##### zsh-auto-notify #####
+export AUTO_NOTIFY_TITLE="Completed: %command"
+export AUTO_NOTIFY_THRESHOLD=5
+
+##### Keybindings #####
+set -o emacs
+
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+
+bindkey '^[[A' up-line-or-beginning-search   # UpArrow
+bindkey '^[[B' down-line-or-beginning-search # DownArrow
+bindkey '^[[1;3D' backward-word              # Alt+LeftArrow
+bindkey '^[[1;3C' forward-word               # Alt+RightArrow
+bindkey '^[[H' beginning-of-line             # Home
+bindkey '^[[F' end-of-line                   # End
+bindkey '^[^?' backward-kill-word            # Alt+Backspace
+bindkey '^[[3;3~' kill-word                  # Alt+Delete
+
+##### Powerlevel10k #####
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ -f "${HOME}/.p10k.zsh" ]] && . "${HOME}/.p10k.zsh"

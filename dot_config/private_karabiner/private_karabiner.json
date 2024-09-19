@@ -1,0 +1,303 @@
+{
+    "global": { "show_in_menu_bar": false },
+    "profiles": [
+        {
+            "complex_modifications": {
+                "rules": [
+                    {
+                        "description": "map opt-{[,]} to cmd-{[,]}",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "open_bracket",
+                                    "modifiers": {
+                                        "mandatory": ["option"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "open_bracket",
+                                        "modifiers": ["command"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "close_bracket",
+                                    "modifiers": {
+                                        "mandatory": ["option"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "close_bracket",
+                                        "modifiers": ["command"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "wezterm: map cmd-shift-f to cmd-shift-f+ctrl-u",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.github\\.wez\\.wezterm$"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "f",
+                                    "modifiers": {
+                                        "mandatory": ["command", "shift"],
+                                        "optional": []
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "f",
+                                        "modifiers": ["command", "shift"]
+                                    },
+                                    {
+                                        "key_code": "u",
+                                        "modifiers": ["control"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "map cmd-{del,bs} to opt-{del,bs}",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "delete_or_backspace",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "delete_or_backspace",
+                                        "modifiers": ["option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "delete_forward",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "delete_forward",
+                                        "modifiers": ["option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "map cmd-{lt,rt} to opt-{lt,rt}",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "left_arrow",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_arrow",
+                                        "modifiers": ["option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "right_arrow",
+                                    "modifiers": {
+                                        "mandatory": ["command"],
+                                        "optional": ["any"]
+                                    }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "right_arrow",
+                                        "modifiers": ["option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "disable cmd-q",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "q",
+                                    "modifiers": { "mandatory": ["command"] }
+                                },
+                                "to": [{ "key_code": "vk_none" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "disable fn if alone",
+                        "manipulators": [
+                            {
+                                "from": { "key_code": "fn" },
+                                "to": [
+                                    {
+                                        "key_code": "fn",
+                                        "lazy": true
+                                    }
+                                ],
+                                "to_if_alone": [{ "key_code": "vk_none" }],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "map cmd-tab to ctrl-tab",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "tab",
+                                    "modifiers": { "mandatory": ["command"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "tab",
+                                        "modifiers": ["control"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
+                                    "key_code": "tab",
+                                    "modifiers": { "mandatory": ["command", "shift"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "tab",
+                                        "modifiers": ["control", "shift"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "devices": [
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "product_id": 835,
+                        "vendor_id": 1452
+                    },
+                    "simple_modifications": [
+                        {
+                            "from": { "apple_vendor_top_case_key_code": "keyboard_fn" },
+                            "to": [{ "key_code": "left_command" }]
+                        },
+                        {
+                            "from": { "key_code": "left_command" },
+                            "to": [{ "key_code": "left_option" }]
+                        },
+                        {
+                            "from": { "key_code": "left_control" },
+                            "to": [{ "apple_vendor_top_case_key_code": "keyboard_fn" }]
+                        },
+                        {
+                            "from": { "key_code": "left_option" },
+                            "to": [{ "key_code": "left_control" }]
+                        },
+                        {
+                            "from": { "key_code": "right_command" },
+                            "to": [{ "key_code": "right_option" }]
+                        },
+                        {
+                            "from": { "key_code": "right_option" },
+                            "to": [{ "key_code": "right_command" }]
+                        }
+                    ]
+                },
+                {
+                    "identifiers": { "is_keyboard": true },
+                    "simple_modifications": [
+                        {
+                            "from": { "apple_vendor_top_case_key_code": "keyboard_fn" },
+                            "to": [{ "key_code": "left_command" }]
+                        },
+                        {
+                            "from": { "key_code": "left_command" },
+                            "to": [{ "key_code": "left_option" }]
+                        },
+                        {
+                            "from": { "key_code": "left_control" },
+                            "to": [{ "apple_vendor_top_case_key_code": "keyboard_fn" }]
+                        },
+                        {
+                            "from": { "key_code": "left_option" },
+                            "to": [{ "key_code": "left_control" }]
+                        },
+                        {
+                            "from": { "key_code": "right_command" },
+                            "to": [{ "key_code": "right_option" }]
+                        },
+                        {
+                            "from": { "key_code": "right_option" },
+                            "to": [{ "key_code": "right_command" }]
+                        }
+                    ]
+                },
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "product_id": 591,
+                        "vendor_id": 1452
+                    },
+                    "simple_modifications": [
+                        {
+                            "from": { "key_code": "left_command" },
+                            "to": [{ "key_code": "left_control" }]
+                        },
+                        {
+                            "from": { "key_code": "left_control" },
+                            "to": [{ "key_code": "left_command" }]
+                        },
+                        {
+                            "from": { "key_code": "right_control" },
+                            "to": [{ "key_code": "right_command" }]
+                        }
+                    ]
+                }
+            ],
+            "name": "Default profile",
+            "selected": true,
+            "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
+        }
+    ]
+}
