@@ -2,7 +2,7 @@
 
 start-at-login = true
 default-root-container-orientation = 'horizontal'
-automatically-unhide-macos-hidden-apps = false
+automatically-unhide-macos-hidden-apps = true
 
 # i3 doesn't have "normalizations" feature that why we disable them here.
 # But the feature is very helpful.
@@ -34,7 +34,7 @@ alt-shift-l = 'move right'
 alt-g = 'split horizontal'
 alt-v = 'split vertical'
 
-alt-f = 'fullscreen'
+alt-f = 'fullscreen --no-outer-gaps'
 
 alt-s = 'layout v_accordion'               # 'layout stacking' in i3
 alt-w = 'layout h_accordion'               # 'layout tabbed' in i3
