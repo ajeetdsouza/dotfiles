@@ -5,12 +5,12 @@ set -euxo pipefail
 if ! command -v brew &>/dev/null; then
     eval "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 brew bundle --cleanup --no-upgrade --file=- <<EOF
 tap "buo/cask-upgrade"
 tap "felixkratz/formulae"
 tap "hashicorp/tap"
-tap "homebrew/services"
 tap "nikitabobko/tap"
 tap "oven-sh/bun"
 
@@ -81,12 +81,13 @@ cask "command-x"
 cask "cursor"
 cask "domzilla-caffeine"
 cask "font-ubuntu-mono-nerd-font"
-cask "google-cloud-sdk"
+cask "gcloud-cli"
+cask "google-chrome"
 cask "iina"
 cask "jordanbaird-ice"
 cask "karabiner-elements"
-cask "lens"
 cask "localsend"
+cask "megasync"
 cask "monitorcontrol"
 cask "music-decoy"
 cask "ngrok"
@@ -108,33 +109,23 @@ cask "wezterm"
 cask "whatsapp"
 cask "zoom"
 
-# Work only
-brew "java"
-brew "localstack"
-brew "minikube"
-brew "minio/minio/mc"
-brew "node"
-brew "pixi"
-brew "pnpm"
-brew "postgresql@14"
-brew "python@3.11"
-brew "redis"
-brew "tesseract"
-brew "vespa-cli"
-cask "linear-linear"
-cask "loom"
-cask "microsoft-teams"
+mas "Bitwarden", id:1352778147
 
-# Experimental
-brew "yazi"
-cask "shottr"
+{{ if eq .chezmoi.hostname "shuri" }}
+# Work only
+{{ end }}
 EOF
 
+brew services start atuin borders
+
+rustup-init -y --no-modify-path --no-update-default-toolchain
+rustup toolchain list | grep -q nightly || rustup toolchain install nightly
+rustup default stable
+
+[[ -f "${HOME}/.cargo/env" ]] && . "${HOME}/.cargo/env"
 cargo install cargo-msrv cargo-ndk cargo-outdated cargo-udeps cargo-zigbuild flamegraph
+
 gcloud components install gke-gcloud-auth-plugin
 gh extension install github/gh-copilot
 go install github.com/google/pprof@latest
 pipx install argcomplete poetry
-
-rustup-init -y --no-modify-path --no-update-default-toolchain
-rustup toolchain list | grep -q nightly || rustup toolchain install nightly

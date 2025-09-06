@@ -196,7 +196,7 @@ export AUTO_NOTIFY_TITLE="Completed: %command"
 export AUTO_NOTIFY_THRESHOLD=5
 
 ##### Keybindings #####
-set -o emacs
+set -o vi
 
 autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
