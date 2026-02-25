@@ -18,17 +18,22 @@ on-focus-changed = ['move-mouse window-lazy-center']
 cmd-m = [] # Disable "minimize"
 
 alt-shift-q = 'close --quit-if-last-window'
-alt-enter = 'exec-and-forget open -na /Applications/Wezterm.app'
+alt-enter = 'exec-and-forget open -na /Applications/Warp.app'
 
 alt-h = 'focus left --boundaries all-monitors-outer-frame'
 alt-j = 'focus down --boundaries all-monitors-outer-frame'
 alt-k = 'focus up --boundaries all-monitors-outer-frame'
 alt-l = 'focus right --boundaries all-monitors-outer-frame'
 
-alt-shift-h = 'move left'
-alt-shift-j = 'move down'
-alt-shift-k = 'move up'
-alt-shift-l = 'move right'
+alt-shift-h = 'move left --boundaries all-monitors-outer-frame'
+alt-shift-j = 'move down --boundaries all-monitors-outer-frame'
+alt-shift-k = 'move up --boundaries all-monitors-outer-frame'
+alt-shift-l = 'move right --boundaries all-monitors-outer-frame'
+
+cmd-alt-shift-h = 'move-workspace-to-monitor left'
+cmd-alt-shift-j = 'move-workspace-to-monitor down'
+cmd-alt-shift-k = 'move-workspace-to-monitor up'
+cmd-alt-shift-l = 'move-workspace-to-monitor right'
 
 # Consider using 'join-with' command as a 'split' replacement if you want to enable normalizations
 alt-g = 'split horizontal'
@@ -50,18 +55,18 @@ alt-shift-space = 'layout floating tiling' # 'floating toggle' in i3
 # should be supported at all https://github.com/nikitabobko/AeroSpace/issues/5
 # alt-a = 'focus parent'
 
-alt-1 = 'summon-workspace 1'
-alt-2 = 'summon-workspace 2'
-alt-3 = 'summon-workspace 3'
-alt-4 = 'summon-workspace 4'
-alt-5 = 'summon-workspace 5'
-alt-6 = 'summon-workspace 6'
-alt-7 = 'summon-workspace 7'
-alt-8 = 'summon-workspace 8'
-alt-9 = 'summon-workspace 9'
-alt-0 = 'summon-workspace 10'
-alt-minus = 'summon-workspace 11'
-alt-equal = 'summon-workspace 12'
+alt-1 = 'workspace 1'
+alt-2 = 'workspace 2'
+alt-3 = 'workspace 3'
+alt-4 = 'workspace 4'
+alt-5 = 'workspace 5'
+alt-6 = 'workspace 6'
+alt-7 = 'workspace 7'
+alt-8 = 'workspace 8'
+alt-9 = 'workspace 9'
+alt-0 = 'workspace 10'
+alt-minus = 'workspace 11'
+alt-equal = 'workspace 12'
 
 alt-shift-1 = 'move-node-to-workspace 1'
 alt-shift-2 = 'move-node-to-workspace 2'

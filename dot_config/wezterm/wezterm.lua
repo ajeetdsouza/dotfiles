@@ -48,16 +48,16 @@ config.enable_scroll_bar = true
 config.font = wezterm.font('UbuntuMono Nerd Font Mono')
 config.font_size = 17.0
 config.hide_tab_bar_if_only_one_tab = true
-config.scrollback_lines = 100000
+config.scrollback_lines = 1000000
 config.tab_bar_at_bottom = true
 config.use_fancy_tab_bar = false
 config.window_close_confirmation = 'NeverPrompt'
 -- config.window_decorations = 'RESIZE'
 config.window_padding = {
-    left = 0,
-    right = 0,
-    top = 0,
-    bottom = 0
+    left = 16,
+    right = 16,
+    top = 16,
+    bottom = 16
 }
 
 config.keys = {{

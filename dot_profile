@@ -4,6 +4,7 @@
 [ -x /opt/homebrew/bin/brew ] && {
     eval "$(/opt/homebrew/bin/brew shellenv)"
     PATH="$(brew --prefix python)/libexec/bin:${PATH}"
+    PATH="$(brew --prefix)/share/google-cloud-sdk/bin:${PATH}"
     export PATH
 }
 [ -f "${HOME}/.cargo/env" ] && . "${HOME}/.cargo/env"

@@ -42,6 +42,9 @@ if ! zgenom saved; then
   _load_completions _cargo rustup completions zsh cargo
   _load_completions _chezmoi chezmoi completion zsh
   _load_completions _gh gh completion --shell=zsh
+  _load_completions _k3d k3d completion zsh
+  _load_completions _k9s k9s completion zsh
+  _load_completions _kafkactl kafkactl completion zsh
   _load_completions _kubectl kubectl completion zsh
   _load_completions _orb orb completion zsh
   _load_completions _pipx register-python-argcomplete --shell=zsh pipx
@@ -74,6 +77,7 @@ complete -o nospace -C terraform terraform
 # However, the wizard also shows up due to errors in your .zshrc,
 # or due to hitting Ctrl-C before the prompt finishes loading.
 export POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD='true'
+export POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD='1'
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -171,7 +175,7 @@ alias gmom='git merge origin/$(git_main_branch)'
 ##### Hooks #####
 # When cd-ing into a directory, print its contents.
 function _ls_hook() {
-  ls
+  eza --group-directories-first
 }
 chpwd_functions=(${chpwd_functions[@]} _ls_hook)
 
