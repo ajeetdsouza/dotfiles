@@ -7,6 +7,7 @@ if ! command -v brew &>/dev/null; then
 fi
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
+brew analytics off
 brew bundle --cleanup --no-upgrade --file=- <<EOF
 tap "buo/cask-upgrade"
 tap "felixkratz/formulae"
@@ -41,6 +42,11 @@ brew "hashicorp/tap/terraform"
 brew "httpie"
 brew "hyperfine"
 brew "jq"
+brew "k3d"
+brew "k9s"
+brew "kafka"
+brew "kafkactl"
+brew "kcat"
 brew "litecli"
 brew "llm"
 brew "mas"
@@ -48,14 +54,12 @@ brew "mimalloc"
 brew "mycli"
 brew "neovim"
 brew "nushell"
-brew "oven-sh/bun/bun"
 brew "pandoc"
 brew "pgcli"
 brew "pipx"
 brew "pkg-config"
 brew "poppler"
 brew "protobuf"
-brew "python"
 brew "rbw"
 brew "ripgrep-all"
 brew "rsync"
@@ -69,32 +73,26 @@ brew "watch"
 brew "watchexec"
 brew "yq"
 brew "zig"
-brew "zoxide"
 brew "zsh"
 
 cask "android-ndk"
 cask "beekeeper-studio"
-cask "bitwarden"
-cask "bluesnooze"
-cask "brave-browser"
 cask "command-x"
+cask "claude"
+cask "claude-code@latest"
 cask "cursor"
 cask "domzilla-caffeine"
 cask "font-ubuntu-mono-nerd-font"
-cask "gcloud-cli"
+cask "ghostty"
 cask "google-chrome"
 cask "iina"
-cask "jordanbaird-ice"
-cask "karabiner-elements"
-cask "localsend"
-cask "megasync"
+cask "linearmouse"
 cask "monitorcontrol"
 cask "music-decoy"
 cask "ngrok"
 cask "nikitabobko/tap/aerospace"
 cask "notion"
 cask "obsidian"
-cask "orbstack"
 cask "postman"
 cask "powershell"
 cask "raycast"
@@ -103,20 +101,30 @@ cask "spotify"
 cask "stats"
 cask "stretchly", args: { no_quarantine: true }
 cask "tg-pro"
+cask "todoist-app"
 cask "visual-studio-code"
 cask "warp"
-cask "wezterm"
-cask "whatsapp"
+cask "wispr-flow"
+cask "zed"
 cask "zoom"
 
-mas "Bitwarden", id:1352778147
+{{ if eq .chezmoi.hostname "odin" }}
+cask "orbstack"
+cask "megasync"
+cask "whatsapp"
+{{ end }}
 
 {{ if eq .chezmoi.hostname "shuri" }}
-# Work only
+brew "pv"
+
+cask "docker-desktop"
+cask "gcloud-cli"
+cask "granola"
+cask "linear-linear"
 {{ end }}
 EOF
 
-brew services start atuin borders
+brew services restart atuin borders
 
 rustup-init -y --no-modify-path --no-update-default-toolchain
 rustup toolchain list | grep -q nightly || rustup toolchain install nightly
@@ -125,7 +133,7 @@ rustup default stable
 [[ -f "${HOME}/.cargo/env" ]] && . "${HOME}/.cargo/env"
 cargo install cargo-msrv cargo-ndk cargo-outdated cargo-udeps cargo-zigbuild flamegraph
 
-gcloud components install gke-gcloud-auth-plugin
 gh extension install github/gh-copilot
 go install github.com/google/pprof@latest
+go install github.com/go-delve/delve/cmd/dlv@latest
 pipx install argcomplete poetry

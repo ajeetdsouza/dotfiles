@@ -18,7 +18,19 @@ on-focus-changed = ['move-mouse window-lazy-center']
 cmd-m = [] # Disable "minimize"
 
 alt-shift-q = 'close --quit-if-last-window'
-alt-enter = 'exec-and-forget open -na /Applications/Warp.app'
+# alt-enter = 'exec-and-forget open -na /Applications/Ghostty.app'
+
+alt-enter = '''exec-and-forget osascript -e '
+tell application "Ghostty"
+    if it is running
+        tell application "System Events" to tell process "Ghostty"
+            click menu item "New Window" of menu "File" of menu bar 1
+        end tell
+    else
+        activate
+    end if
+end tell'
+'''
 
 alt-h = 'focus left --boundaries all-monitors-outer-frame'
 alt-j = 'focus down --boundaries all-monitors-outer-frame'
@@ -106,6 +118,26 @@ outer.right = 8
 # Brave switches to a floating layout when a tab is dragged out of a window.
 [[on-window-detected]]
 if.app-id = 'com.brave.Browser'
+check-further-callbacks = true
+run = 'layout tiling'
+
+[[on-window-detected]]
+if.app-id = 'org.audacityteam.audacity'
+check-further-callbacks = true
+run = 'layout tiling'
+
+[[on-window-detected]]
+if.app-id = 'com.colliderli.iina'
+check-further-callbacks = true
+run = 'layout tiling'
+[[on-window-detected]]
+
+if.app-id = 'com.okta.mobile'
+check-further-callbacks = true
+run = 'layout tiling'
+
+[[on-window-detected]]
+if.app-id = 'com.lujjjh.LinearMouse'
 check-further-callbacks = true
 run = 'layout tiling'
 

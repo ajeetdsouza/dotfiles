@@ -112,6 +112,10 @@ alias p='python'
 alias t='task'
 alias v='nvim'
 
+alias bs="go run -C $HOME/ws/bufstream ./cmd/bufstream"
+alias bsw="go run -C $HOME/ws/bufstream ./cmd/bufstream-workflow"
+alias gox='go install -C $HOME/ws/gox && gox'
+
 ##### git aliases #####
 # https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/git/git.plugin.zsh
 
@@ -193,6 +197,7 @@ LS_COLORS="$(vivid generate one-dark)"
 export LS_COLORS
 
 ##### zoxide #####
+[[ -d "${HOME}/ws/zoxide/target/debug" ]] && export PATH="${HOME}/ws/zoxide/target/debug:${PATH}"
 eval "$(zoxide init zsh)"
 
 ##### zsh-auto-notify #####

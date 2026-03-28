@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
+borders blacklist="Loom"
 borders active_color=0xff98c379 width=8

@@ -4,6 +4,7 @@ set -euxo pipefail
 
 # Restart services
 aerospace reload-config
+osascript -e 'tell application "System Events" to tell process "Ghostty" to click menu item "Reload Configuration" of menu "Ghostty" of menu bar item "Ghostty" of menu bar 1'
 brew services restart borders
 
 # Reset zsh
