@@ -1,19 +1,6 @@
-#!/usr/bin/env bash
-
-set -euxo pipefail
-
-if ! command -v brew &>/dev/null; then
-    eval "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-fi
-eval "$(/opt/homebrew/bin/brew shellenv)"
-
-brew analytics off
-brew bundle --cleanup --no-upgrade --file=- <<EOF
-tap "buo/cask-upgrade"
-tap "felixkratz/formulae"
-tap "hashicorp/tap"
-tap "nikitabobko/tap"
-tap "oven-sh/bun"
+tap "buo/cask-upgrade", trusted: true
+tap "felixkratz/formulae", trusted: true
+tap "nikitabobko/tap", trusted: true
 
 brew "aria2"
 brew "atool"
@@ -30,7 +17,6 @@ brew "felixkratz/formulae/borders"
 brew "ffmpeg"
 brew "fish"
 brew "fzf"
-brew "gemini-cli"
 brew "gh"
 brew "git"
 brew "git-delta"
@@ -38,12 +24,9 @@ brew "git-recent"
 brew "go"
 brew "go-task"
 brew "golangci-lint"
-brew "hashicorp/tap/terraform"
 brew "httpie"
 brew "hyperfine"
 brew "jq"
-brew "k3d"
-brew "k9s"
 brew "kafka"
 brew "kafkactl"
 brew "kcat"
@@ -53,6 +36,7 @@ brew "mas"
 brew "mimalloc"
 brew "mycli"
 brew "neovim"
+brew "node"
 brew "nushell"
 brew "pandoc"
 brew "pgcli"
@@ -68,6 +52,7 @@ brew "sqlc"
 brew "starship"
 brew "rustup"
 brew "tokei"
+brew "uv"
 brew "vivid"
 brew "watch"
 brew "watchexec"
@@ -80,6 +65,7 @@ cask "beekeeper-studio"
 cask "command-x"
 cask "claude"
 cask "claude-code@latest"
+cask "cmux"
 cask "cursor"
 cask "domzilla-caffeine"
 cask "font-ubuntu-mono-nerd-font"
@@ -91,12 +77,10 @@ cask "monitorcontrol"
 cask "music-decoy"
 cask "ngrok"
 cask "nikitabobko/tap/aerospace"
-cask "notion"
 cask "obsidian"
 cask "postman"
 cask "powershell"
 cask "raycast"
-cask "reader"
 cask "spotify"
 cask "stats"
 cask "stretchly", args: { no_quarantine: true }
@@ -108,32 +92,21 @@ cask "wispr-flow"
 cask "zed"
 cask "zoom"
 
+go "github.com/google/pprof"
+go "github.com/go-delve/delve/cmd/dlv"
+
+uv "argcomplete"
+uv "poetry"
+
 {{ if eq .chezmoi.hostname "odin" }}
+cask "loom"
 cask "orbstack"
 cask "megasync"
 cask "whatsapp"
 {{ end }}
 
 {{ if eq .chezmoi.hostname "shuri" }}
-brew "pv"
-
 cask "docker-desktop"
 cask "gcloud-cli"
-cask "granola"
-cask "linear-linear"
+cask "linear"
 {{ end }}
-EOF
-
-brew services restart atuin borders
-
-rustup-init -y --no-modify-path --no-update-default-toolchain
-rustup toolchain list | grep -q nightly || rustup toolchain install nightly
-rustup default stable
-
-[[ -f "${HOME}/.cargo/env" ]] && . "${HOME}/.cargo/env"
-cargo install cargo-msrv cargo-ndk cargo-outdated cargo-udeps cargo-zigbuild flamegraph
-
-gh extension install github/gh-copilot
-go install github.com/google/pprof@latest
-go install github.com/go-delve/delve/cmd/dlv@latest
-pipx install argcomplete poetry

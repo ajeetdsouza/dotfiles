@@ -95,7 +95,6 @@ alias grep='grep --color=auto'
 # Replace utilities with their equivalents.
 alias cat='bat --pager=never --style=plain'
 alias ls='eza --group-directories-first'
-alias rg='rga'
 
 # Prevent clobbering when dealing with files.
 alias cp='cp -i'
@@ -207,6 +206,8 @@ export AUTO_NOTIFY_THRESHOLD=5
 ##### Keybindings #####
 set -o vi
 
+KEYTIMEOUT=1
+
 autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
 zle -N up-line-or-beginning-search
@@ -214,12 +215,15 @@ zle -N down-line-or-beginning-search
 
 bindkey '^[[A' up-line-or-beginning-search   # UpArrow
 bindkey '^[[B' down-line-or-beginning-search # DownArrow
-bindkey '^[[1;3D' backward-word              # Alt+LeftArrow
-bindkey '^[[1;3C' forward-word               # Alt+RightArrow
 bindkey '^[[H' beginning-of-line             # Home
 bindkey '^[[F' end-of-line                   # End
 bindkey '^[^?' backward-kill-word            # Alt+Backspace
 bindkey '^[[3;3~' kill-word                  # Alt+Delete
+
+bindkey -M viins '^[b' backward-word     # Opt+LeftArrow (readline-style)
+bindkey -M viins '^[f' forward-word      # Opt+RightArrow (readline-style)
+bindkey -M viins '^[[1;3D' backward-word # Opt+LeftArrow (xterm-style)
+bindkey -M viins '^[[1;3C' forward-word  # Opt+RightArrow (xterm-style)
 
 ##### Powerlevel10k #####
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.

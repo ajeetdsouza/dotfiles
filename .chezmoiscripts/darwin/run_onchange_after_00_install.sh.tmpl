@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -euxo pipefail
+
+if ! command -v brew &>/dev/null; then
+    eval "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+brew analytics off
+brew bundle --global cleanup --force
+brew bundle --global install --no-upgrade
+
+brew services restart atuin borders
+
+rustup-init -y --no-modify-path --no-update-default-toolchain
+rustup toolchain list | grep -q nightly || rustup toolchain install nightly
+rustup default stable
+
+[[ -f "${HOME}/.cargo/env" ]] && . "${HOME}/.cargo/env"
+cargo install cargo-asm cargo-msrv cargo-ndk cargo-outdated cargo-udeps cargo-zigbuild flamegraph
