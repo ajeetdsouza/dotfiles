@@ -3,7 +3,7 @@
 
 ##### zsh #####
 # Miscellaneous
-setopt appendhistory autocd extendedglob extendedhistory histfindnodups histignorealldups histignorespace sharehistory
+setopt appendhistory autocd extendedglob extendedhistory histfindnodups histignorealldups histignorespace interactivecomments sharehistory
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
 # History
